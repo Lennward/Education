@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cell & Protein Analytics Interactive Course</title> <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cell & Protein Analytics Interactive Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            margin: 0; /* Added to prevent default body margin */
-            height: 100vh; /* Ensure body takes full viewport height */
-            display: flex; /* Added for flex layout */
-            flex-direction: column; /* Stack children vertically */
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
         }
         .sidebar-link {
             transition: all 0.3s ease;
@@ -22,113 +23,113 @@
             transform: translateX(5px);
         }
         .module-content h2 {
-            font-size: 1.75rem; /* text-2xl equivalent */
-            font-weight: 600; /* semibold */
-            color: #1e3a8a; /* blue-800 */
+            font-size: 1.75rem; 
+            font-weight: 600; 
+            color: #1e3a8a; 
             margin-bottom: 1rem;
-            border-bottom: 2px solid #3b82f6; /* blue-500 */
+            border-bottom: 2px solid #3b82f6; 
             padding-bottom: 0.5rem;
         }
         .module-content h3 {
-            font-size: 1.25rem; /* text-xl equivalent */
-            font-weight: 600; /* semibold */
-            color: #1d4ed8; /* blue-700 */
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            color: #1d4ed8; 
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
         }
-        .module-content p, .module-content ul, .module-content ol, .module-content table { /* Added ol and table */
+        .module-content p, .module-content ul, .module-content ol, .module-content table { 
             margin-bottom: 1rem;
             line-height: 1.6;
-            color: #374151; /* gray-700 */
+            color: #374151; 
         }
-        .module-content ul, .module-content ol { /* Modified ul to include ol */
+        .module-content ul, .module-content ol { 
             list-style-type: disc;
             margin-left: 1.5rem;
         }
-        .module-content ol.list-decimal { /* Specific style for decimal lists */
+        .module-content ol.list-decimal { 
             list-style-type: decimal;
         }
         .module-content .formula {
-            font-family: 'Times New Roman', Times, serif; /* More traditional math font */
+            font-family: 'Times New Roman', Times, serif; 
             font-size: 1.1em;
-            color: #1e40af; /* A darker blue for formulas */
-            background-color: #f0f9ff; /* Very light blue background */
+            color: #1e40af; 
+            background-color: #f0f9ff; 
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
-            border: 1px solid #e0f2fe; /* Light blue border */
-            display: inline-block; /* Or block if preferred */
+            border: 1px solid #e0f2fe; 
+            display: inline-block; 
             margin-top: 0.25rem;
             margin-bottom: 0.75rem;
         }
-        .interactive-box, .practice-problem-box { /* Added practice-problem-box */
-            background-color: #eff6ff; /* blue-50 */
-            border: 1px solid #bfdbfe; /* blue-200 */
+        .interactive-box, .practice-problem-box { 
+            background-color: #eff6ff; 
+            border: 1px solid #bfdbfe; 
             border-radius: 0.5rem;
             padding: 1.5rem;
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        .interactive-box h4, .practice-problem-box h4 { /* Added practice-problem-box */
+        .interactive-box h4, .practice-problem-box h4 { 
             font-size: 1.1rem;
             font-weight: 600;
-            color: #1e40af; /* blue-800 */
+            color: #1e40af; 
             margin-bottom: 1rem;
         }
         .quiz-question {
-            background-color: #f9fafb; /* gray-50 */
-            border: 1px solid #e5e7eb; /* gray-200 */
+            background-color: #f9fafb; 
+            border: 1px solid #e5e7eb; 
             border-radius: 0.5rem;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
         }
         .quiz-option {
             display: block;
-            width: 100%; /* Ensure options take full width */
+            width: 100%; 
             background-color: #fff;
-            border: 1px solid #d1d5db; /* gray-300 */
+            border: 1px solid #d1d5db; 
             border-radius: 0.375rem;
             padding: 0.75rem 1rem;
             margin-bottom: 0.5rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-align: left; /* Ensure text aligns left for options */
+            text-align: left; 
         }
         .quiz-option:hover {
-            border-color: #3b82f6; /* blue-500 */
-            background-color: #eff6ff; /* blue-50 */
+            border-color: #3b82f6; 
+            background-color: #eff6ff; 
         }
-        .quiz-option.correct, .practice-problem-box .correct-answer { /* Added styles for practice problems */
-            background-color: #d1fae5 !important; /* green-100 */
-            border-color: #10b981 !important; /* green-500 */
-            color: #065f46 !important; /* green-800 */
+        .quiz-option.correct, .practice-problem-box .correct-answer { 
+            background-color: #d1fae5 !important; 
+            border-color: #10b981 !important; 
+            color: #065f46 !important; 
         }
-        .quiz-option.incorrect, .practice-problem-box .incorrect-answer { /* Added styles for practice problems */
-            background-color: #fee2e2 !important; /* red-100 */
-            border-color: #ef4444 !important; /* red-500 */
-            color: #991b1b !important; /* red-800 */
+        .quiz-option.incorrect, .practice-problem-box .incorrect-answer { 
+            background-color: #fee2e2 !important; 
+            border-color: #ef4444 !important; 
+            color: #991b1b !important; 
         }
-        .feedback-message, .practice-feedback { /* Added practice-feedback */
+        .feedback-message, .practice-feedback { 
             margin-top: 0.5rem;
             font-weight: 500;
         }
-        .calculator input, .calculator select, .practice-problem-box input { /* Added practice-problem-box input */
+        .calculator input, .calculator select, .practice-problem-box input { 
             border: 1px solid #d1d5db;
             border-radius: 0.375rem;
             padding: 0.5rem 0.75rem;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
-            box-sizing: border-box; /* Ensure padding doesn't increase width */
+            box-sizing: border-box; 
         }
-        .calculator button, .practice-problem-box button { /* Added practice-problem-box button */
-            background-color: #3b82f6; /* blue-500 */
+        .calculator button, .practice-problem-box button { 
+            background-color: #3b82f6; 
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             transition: background-color 0.2s ease;
-            border: none; /* Remove default button border */
+            border: none; 
         }
-        .calculator button:hover, .practice-problem-box button:hover { /* Added practice-problem-box button hover */
-            background-color: #2563eb; /* blue-600 */
+        .calculator button:hover, .practice-problem-box button:hover { 
+            background-color: #2563eb; 
         }
         .flex.h-screen {
             display: flex;
@@ -140,45 +141,35 @@
         #main-content {
             flex-grow: 1; 
         }
-        .solution-details { /* Style for solution details */
+        .solution-details { 
             font-size: 0.9rem;
-            color: #4b5563; /* gray-600 */
-            background-color: #f9fafb; /* gray-50 */
-            border-left: 3px solid #3b82f6; /* blue-500 */
+            color: #4b5563; 
+            background-color: #f9fafb; 
+            border-left: 3px solid #3b82f6; 
             padding: 0.75rem;
             margin-top: 0.75rem;
             border-radius: 0.25rem;
         }
 
-        /* Styles for Module 1 specific elements if not covered by Tailwind or existing styles */
         .plasmid-info-box, .media-component-info-box {
-            /* These are styled with Tailwind in module 1's content for specific appearances,
-               but a base style ensures they behave as expected if Tailwind classes are missed */
             padding: 0.75rem;
             border-radius: 0.375rem;
             margin-top: 0.75rem;
             font-size: 0.9rem;
-            /* display: none; /* Initially hidden, JS will show them */
-            /* background-color: #e0f2fe; /* Example background */
-            /* border: 1px solid #7dd3fc; /* Example border */
         }
 
-        /* Added from original for Module 1's Media Prep Station */
         .media-component-button {
-            background-color: #93c5fd; /* blue-300 */
-            border: 1px solid #60a5fa; /* blue-400 */
-            /* Other styles like padding, margin, text-align are handled by Tailwind or inline */
+            background-color: #93c5fd; 
+            border: 1px solid #60a5fa; 
         }
         .media-component-button:hover {
-            background-color: #60a5fa; /* blue-400 */
+            background-color: #60a5fa; 
         }
         .media-component-button.selected {
-            background-color: #3b82f6; /* blue-500 */
+            background-color: #3b82f6; 
             color: white;
             font-weight: bold;
         }
-        /* Tailwind classes are heavily used in Module 1 for plasmid buttons, so specific .plasmid-component-btn CSS might not be needed here if Tailwind is sufficient */
-
     </style>
 </head>
 <body class="bg-gray-200">
@@ -186,14 +177,15 @@
     <div class="flex h-screen font-inter">
         <nav id="sidebar" class="w-64 sm:w-72 bg-slate-800 text-slate-100 p-4 sm:p-6 space-y-3 overflow-y-auto shadow-lg">
             <h1 class="text-xl sm:text-2xl font-bold text-yellow-400 mb-6 border-b-2 border-yellow-500 pb-2">Molecular Explorer</h1>
-            </nav>
+        </nav>
 
         <main id="main-content" class="flex-1 p-4 sm:p-6 md:p-10 bg-slate-50 overflow-y-auto">
-            <div id="welcome-message" class="text-center p-6 sm:p-10 bg-white rounded-lg shadow-md"> <h2 class="text-2xl sm:text-3xl font-semibold text-blue-700 mb-4">Welcome to the Interactive Cell & Protein Analytics Course!</h2>
+            <div id="welcome-message" class="text-center p-6 sm:p-10 bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-blue-700 mb-4">Welcome to the Interactive Cell & Protein Analytics Course!</h2>
                 <p class="text-base sm:text-lg text-gray-600 mb-6">Select a module from the sidebar to begin your learning journey.</p>
                 <img src="https://placehold.co/600x300/60a5fa/ffffff?text=Molecular+Exploration+Awaits!" alt="Welcome Banner" class="mx-auto rounded-lg shadow-sm w-full max-w-lg">
             </div>
-            </main>
+        </main>
     </div>
 
     <script>
@@ -274,7 +266,7 @@
                                 <button class="media-component-button block w-full text-left p-2 rounded hover:bg-blue-200 text-xs sm:text-sm" data-info="L-Glutamine: An essential amino acid required by cells in culture, serving as a nitrogen source for nucleotide and amino acid synthesis, and an energy source. It's unstable in liquid media at 37°C, degrading over time (half-life ~1 week). Often added fresh or a stable dipeptide form like GlutaMAX™ is used. Typical concentration is 2-4 mM.">3. L-Glutamine (or GlutaMAX&trade;) - typically 2-4 mM</button>
                                 <button class="media-component-button block w-full text-left p-2 rounded hover:bg-blue-200 text-xs sm:text-sm" data-info="Penicillin-Streptomycin (Pen-Strep): An antibiotic/antimycotic solution typically added at 1% (final concentration ~100 U/mL Penicillin, ~100 µg/mL Streptomycin). Used to prevent bacterial contamination. While common, routine use can mask poor aseptic technique and may lead to antibiotic-resistant strains or affect cell physiology. Should be used judiciously.">4. Penicillin-Streptomycin (optional, but common) - typically 1%</button>
                             </div>
-                            <div id="media-component-info" class="media-component-info-box mt-3 p-3 rounded bg-green-100 border border-green-300 text-sm text-green-800" style="display: none;">Click a component to see its description.</div>
+                            <div id="media-prep-component-info" class="media-component-info-box mt-3 p-3 rounded bg-green-100 border border-green-300 text-sm text-green-800" style="display: none;">Click a component to see its description.</div>
                             <p class="text-sm mt-2">Each component is added aseptically under the laminar flow hood.</p>
                         </div>
                         <ul>
@@ -360,9 +352,11 @@
                 ],
                 init: () => {
                     // Plasmid Components Interaction
-                    const plasmidButtons = document.querySelectorAll('#module1 .plasmid-component-btn');
-                    const plasmidInfoDiv = document.getElementById('plasmid-component-info');
-                    if (plasmidButtons.length > 0 && plasmidInfoDiv) {
+                    const plasmidButtonsContainer = document.getElementById('plasmid-components-buttons');
+                    const plasmidInfoDiv = document.getElementById('plasmid-component-info'); 
+
+                    if (plasmidButtonsContainer && plasmidInfoDiv) {
+                        const plasmidButtons = plasmidButtonsContainer.querySelectorAll('.plasmid-component-btn');
                         plasmidButtons.forEach(button => {
                             button.addEventListener('click', () => {
                                 plasmidInfoDiv.innerHTML = button.dataset.info;
@@ -371,20 +365,26 @@
                                 button.classList.add('ring-2', 'ring-offset-2', 'ring-blue-700', 'scale-105');
                             });
                         });
+                    } else {
+                        // console.warn("Plasmid components interactive elements (buttons container or info div) not found for Module 1.");
                     }
 
                     // Media Prep Station Interaction
-                    const mediaButtons = document.querySelectorAll('#module1 .media-component-button');
-                    const mediaInfoDiv = document.getElementById('media-component-info');
-                    if (mediaButtons.length > 0 && mediaInfoDiv) {
+                    const mediaButtonsContainer = document.getElementById('media-components-list');
+                    const mediaPrepInfoDiv = document.getElementById('media-prep-component-info'); // Corrected ID
+
+                    if (mediaButtonsContainer && mediaPrepInfoDiv) {
+                        const mediaButtons = mediaButtonsContainer.querySelectorAll('.media-component-button');
                         mediaButtons.forEach(button => {
                             button.addEventListener('click', () => {
-                                mediaInfoDiv.innerHTML = button.dataset.info;
-                                mediaInfoDiv.style.display = 'block';
+                                mediaPrepInfoDiv.innerHTML = button.dataset.info;
+                                mediaPrepInfoDiv.style.display = 'block';
                                 mediaButtons.forEach(btn => btn.classList.remove('selected'));
                                 button.classList.add('selected');
                             });
                         });
+                    } else {
+                        // console.warn("Media prep station interactive elements (buttons container or info div) not found for Module 1.");
                     }
 
                     // Contamination Detective Quiz for Module 1
@@ -410,9 +410,10 @@
                     ];
                     const quizContainerModule1 = document.getElementById('contamination-quiz-module1');
                     if (quizContainerModule1) {
+                        quizContainerModule1.innerHTML = ''; // Clear previous content if any
                         contaminationQuizDataModule1.forEach((q, index) => {
                             const qDiv = document.createElement('div');
-                            qDiv.className = 'quiz-question p-4 mb-3 bg-white rounded-lg shadow'; // Using existing quiz-question class and adding some padding etc.
+                            qDiv.className = 'quiz-question p-4 mb-3 bg-white rounded-lg shadow'; 
                             let optionsHtml = `<p class="font-medium mb-2 text-sm">${index+1}. ${q.description}</p><div class="space-y-1">`;
                             q.options.forEach(opt => {
                                 optionsHtml += `<button class="quiz-option text-xs sm:text-sm" data-answer="${q.answer}">${opt}</button>`;
@@ -447,10 +448,12 @@
                             });
                             quizContainerModule1.appendChild(qDiv);
                         });
+                    } else {
+                        // console.warn("Contamination quiz container 'contamination-quiz-module1' not found.");
                     }
                 }
             },
-            { // This is Module 2 from your provided HTML
+            { // Module 2 from your provided HTML
                 id: "module2",
                 title: "Module 2: Dilutions, Concentrations & Cell Counting",
                 content: () => `
@@ -717,334 +720,4 @@
                     }
                 ],
                 init: () => { 
-                    // Initialization specific to Module 2
-                    // (e.g., event listeners for calculators if not handled by inline onclick)
-                    // This init function will be called when Module 2 is loaded.
-                    // The functions convertUnits, calculateDilution, calculateCellDensity, checkPracticeAnswer are global.
-                    const concUnitSelect = document.getElementById('calc_units_conc');
-                    const volUnitSelect = document.getElementById('calc_units_vol');
-                    
-                    const updateUnitsInCalculator = () => {
-                        // This function could be used if units need to be dynamically displayed next to inputs,
-                        // but current setup uses select dropdowns directly.
-                    };
-
-                    if (concUnitSelect) { 
-                        concUnitSelect.addEventListener('change', updateUnitsInCalculator);
-                    }
-                    if (volUnitSelect) {
-                        volUnitSelect.addEventListener('change', updateUnitsInCalculator);
-                    }
-                    updateUnitsInCalculator(); 
-                }
-            }
-        ];
-
-        // --- CORE UI LOGIC ---
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
-        const welcomeMessage = document.getElementById('welcome-message');
-
-        function loadModule(moduleId) {
-            const moduleData = modulesData.find(m => m.id === moduleId);
-            if (moduleData && mainContent) { 
-                if (welcomeMessage) welcomeMessage.style.display = 'none'; 
-                mainContent.innerHTML = moduleData.content(); 
-                
-                if (moduleData.quiz && moduleData.quiz.length > 0) {
-                    const quizHtml = `
-                        <div class="mt-8 pt-6 border-t-2 border-blue-300">
-                            <h3 class="text-xl font-semibold text-blue-700 mb-4">Module Quiz!</h3>
-                            <p class="text-sm text-gray-600 mb-4">Test your knowledge from this module. Select an answer for each question.</p>
-                            <div id="quiz-container-${moduleId}"></div>
-                        </div>
-                    `;
-                    mainContent.insertAdjacentHTML('beforeend', quizHtml);
-                    renderQuiz(moduleData.quiz, `quiz-container-${moduleId}`);
-                }
-                
-                if (moduleData.init && typeof moduleData.init === 'function') {
-                    try {
-                        moduleData.init(); 
-                    } catch (error) {
-                        console.error("Error during module initialization for " + moduleId + ":", error);
-                    }
-                }
-
-                document.querySelectorAll('.sidebar-link').forEach(link => {
-                    link.classList.remove('active', 'bg-slate-700', 'text-yellow-400'); // Corrected active classes
-                    if (link.dataset.moduleId === moduleId) {
-                        link.classList.add('active', 'bg-slate-700', 'text-yellow-400'); // Corrected active classes
-                    }
-                });
-            } else if (!mainContent) {
-                console.error("Error: Main content container not found.");
-            } else {
-                console.warn(`Module with ID "${moduleId}" not found.`);
-                if(welcomeMessage) welcomeMessage.style.display = 'block'; 
-            }
-        }
-
-        function renderQuiz(quizData, containerId) {
-            const quizContainer = document.getElementById(containerId);
-            if (!quizContainer) {
-                console.error(`Quiz container with ID "${containerId}" not found.`);
-                return; 
-            }
-            quizContainer.innerHTML = ''; 
-
-            quizData.forEach((q, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'quiz-question';
-                
-                let optionsHtml = '';
-                if (q.type === 'mcq' || q.type === 'tf') { 
-                    q.options.forEach(optionText => {
-                        const escapedOptionValue = optionText.replace(/"/g, '&quot;'); 
-                        optionsHtml += `<button class="quiz-option" data-question-index="${index}" data-option-value="${escapedOptionValue}">${optionText}</button>`;
-                    });
-                }
-
-                questionDiv.innerHTML = `
-                    <p class="font-medium mb-3">${index + 1}. ${q.question}</p>
-                    <div class="space-y-2">${optionsHtml}</div>
-                    <div class="feedback-message text-sm mt-2 p-2 rounded-md hidden"></div>
-                `;
-                quizContainer.appendChild(questionDiv);
-            });
-
-            quizContainer.addEventListener('click', function(event) {
-                if (event.target.classList.contains('quiz-option')) {
-                    const selectedOptionButton = event.target;
-                    const questionIndex = parseInt(selectedOptionButton.dataset.questionIndex);
-                    const questionData = quizData[questionIndex];
-                    const feedbackDiv = selectedOptionButton.closest('.quiz-question').querySelector('.feedback-message');
-                    const selectedValue = selectedOptionButton.dataset.optionValue;
-
-                    selectedOptionButton.parentElement.querySelectorAll('.quiz-option').forEach(btn => {
-                        btn.disabled = true;
-                        btn.classList.remove('correct', 'incorrect'); 
-                    });
-                    
-                    feedbackDiv.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700'); 
-
-                    if (selectedValue === questionData.answer) {
-                        selectedOptionButton.classList.add('correct');
-                        feedbackDiv.innerHTML = '<strong>Correct!</strong> '; 
-                        feedbackDiv.classList.add('bg-green-100', 'text-green-700');
-                    } else {
-                        selectedOptionButton.classList.add('incorrect');
-                        feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <span class="font-semibold">${questionData.answer}</span>. `;
-                        feedbackDiv.classList.add('bg-red-100', 'text-red-700');
-                        selectedOptionButton.parentElement.querySelectorAll('.quiz-option').forEach(btn => {
-                            if (btn.dataset.optionValue === questionData.answer) {
-                                btn.classList.add('correct'); 
-                            }
-                        });
-                    }
-                    if(questionData.explanation) {
-                        feedbackDiv.innerHTML += `<br><span class="text-xs">${questionData.explanation}</span>`;
-                    }
-                    feedbackDiv.classList.remove('hidden'); 
-                }
-            });
-        }
-
-        function populateSidebar() {
-            if (!sidebar) return; 
-            modulesData.forEach(module => {
-                const link = document.createElement('a');
-                link.href = '#'; 
-                link.textContent = module.title;
-                link.className = 'block py-2.5 px-4 rounded sidebar-link text-slate-200 hover:bg-slate-600 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm';
-                link.dataset.moduleId = module.id;
-                link.addEventListener('click', (e) => {
-                    e.preventDefault(); 
-                    loadModule(module.id);
-                });
-                sidebar.appendChild(link);
-            });
-        }
-        
-        // Functions for Module 2 calculators and practice problems
-        function convertUnits() {
-            const mlInput = document.getElementById('ml-input');
-            const outputP = document.getElementById('ul-output');
-            if (!mlInput || !outputP) {
-                console.error("Unit converter elements missing.");
-                return; 
-            }
-
-            const mlVal = parseFloat(mlInput.value);
-            if (!isNaN(mlVal)) {
-                outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${mlVal * 1000} &mu;L</span>`;
-                outputP.classList.remove('text-red-600');
-                outputP.classList.add('text-blue-700');
-            } else {
-                outputP.textContent = 'Please enter a valid number for mL.';
-                outputP.classList.remove('text-blue-700');
-                outputP.classList.add('text-red-600');
-            }
-        }
-
-        function calculateDilution() {
-            const c1El = document.getElementById('c1_calc');
-            const v1El = document.getElementById('v1_calc');
-            const c2El = document.getElementById('c2_calc');
-            const v2El = document.getElementById('v2_calc');
-            const resultP = document.getElementById('dilution-result');
-            const stepsP = document.getElementById('dilution-steps');
-            const resultContainer = document.getElementById('dilution-result-container');
-            const concUnitsEl = document.getElementById('calc_units_conc');
-            const volUnitsEl = document.getElementById('calc_units_vol');
-
-            if (!c1El || !v1El || !c2El || !v2El || !resultP || !stepsP || !resultContainer || !concUnitsEl || !volUnitsEl) {
-                 if(resultP) resultP.textContent = "Calculator elements are missing. Cannot perform calculation.";
-                 if(resultContainer) resultContainer.classList.remove('hidden');
-                return;
-            }
-
-            const c1 = parseFloat(c1El.value);
-            const v1 = parseFloat(v1El.value);
-            const c2 = parseFloat(c2El.value);
-            const v2 = parseFloat(v2El.value);
-            
-            resultP.innerHTML = ''; 
-            stepsP.innerHTML = '';  
-            resultContainer.classList.add('hidden'); 
-
-            const concUnits = concUnitsEl.value;
-            const volUnits = volUnitsEl.value; 
-
-            let missingValues = 0;
-            if (isNaN(c1)) missingValues++;
-            if (isNaN(v1)) missingValues++;
-            if (isNaN(c2)) missingValues++;
-            if (isNaN(v2)) missingValues++;
-
-            if (missingValues !== 1) {
-                resultP.textContent = "Error: Please provide exactly 3 values to calculate the fourth.";
-                resultP.className = "font-semibold text-red-600";
-                resultContainer.classList.remove('hidden');
-                return;
-            }
-            
-            let calculatedValueStr = "";
-            let calculationStepsStr = "";
-
-            if (isNaN(c1)) { 
-                if (v1 === 0) { resultP.textContent = "Error: V1 (Stock Volume) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_c1_val = (c2 * v2) / v1;
-                calculatedValueStr = `Calculated Stock Concentration (C<sub>1</sub>) = <strong>${calc_c1_val.toFixed(3)} ${concUnits}</strong>`;
-                calculationStepsStr = `Using C<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / V<sub>1</sub> = (${c2} ${concUnits} &times; ${v2} ${volUnits}) / ${v1} ${volUnits}`;
-            } else if (isNaN(v1)) { 
-                if (c1 === 0) { resultP.textContent = "Error: C1 (Stock Concentration) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_v1_val = (c2 * v2) / c1;
-                const diluentVol = v2 - calc_v1_val;
-                calculatedValueStr = `Calculated Stock Volume (V<sub>1</sub>) = <strong>${calc_v1_val.toFixed(3)} ${volUnits}</strong>`;
-                calculationStepsStr = `Using V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (${c2} ${concUnits} &times; ${v2} ${volUnits}) / ${c1} ${concUnits}. <br>You need ${calc_v1_val.toFixed(3)} ${volUnits} of stock and ${diluentVol.toFixed(3)} ${volUnits} of diluent.`;
-            } else if (isNaN(c2)) { 
-                if (v2 === 0) { resultP.textContent = "Error: V2 (Final Volume) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_c2_val = (c1 * v1) / v2;
-                calculatedValueStr = `Calculated Final Concentration (C<sub>2</sub>) = <strong>${calc_c2_val.toFixed(3)} ${concUnits}</strong>`;
-                calculationStepsStr = `Using C<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / V<sub>2</sub> = (${c1} ${concUnits} &times; ${v1} ${volUnits}) / ${v2} ${volUnits}`;
-            } else if (isNaN(v2)) { 
-                if (c2 === 0) { resultP.textContent = "Error: C2 (Final Concentration) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_v2_val = (c1 * v1) / c2;
-                calculatedValueStr = `Calculated Final Volume (V<sub>2</sub>) = <strong>${calc_v2_val.toFixed(3)} ${volUnits}</strong>`;
-                calculationStepsStr = `Using V<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / C<sub>2</sub> = (${c1} ${concUnits} &times; ${v1} ${volUnits}) / ${c2} ${concUnits}`;
-            }
-            
-            resultP.innerHTML = calculatedValueStr;
-            resultP.className = "font-semibold text-blue-700"; 
-            stepsP.innerHTML = calculationStepsStr;
-            resultContainer.classList.remove('hidden'); 
-        }
-        
-        function calculateCellDensity() {
-            const cellsCountedInput = document.getElementById('cells-counted');
-            const dilutionFactorInput = document.getElementById('dilution-factor');
-            const outputP = document.getElementById('cell-density-output');
-
-            if(!cellsCountedInput || !dilutionFactorInput || !outputP) {
-                console.error("Cell density calculator elements missing.");
-                return; 
-            }
-
-            const cellsCounted = parseInt(cellsCountedInput.value); 
-            const dilutionFactor = parseFloat(dilutionFactorInput.value);
-
-            if (isNaN(cellsCounted) || isNaN(dilutionFactor) || cellsCounted < 0 || dilutionFactor <= 0) {
-                outputP.textContent = "Please enter valid, positive numbers for cells counted and dilution factor.";
-                outputP.className = "mt-3 font-semibold text-red-600";
-                return;
-            }
-            
-            const avgCellsPerSquare = cellsCounted / 4; 
-            const cellsPerMilliLiter = avgCellsPerSquare * dilutionFactor * 10000; 
-            
-            outputP.innerHTML = `Calculated Cell Density: <strong>${cellsPerMilliLiter.toExponential(2)} cells/mL</strong>`;
-            outputP.className = "mt-3 font-semibold text-green-700";
-        }
-
-        /**
-         * Checks the user's answer for a practice problem.
-         * @param {string} problemId - The base ID for the problem's feedback and solution elements.
-         * @param {number[]} correctAnswers - An array of correct numerical answers.
-         * @param {string[]} inputIds - An array of IDs for the input elements.
-         */
-        function checkPracticeAnswer(problemId, correctAnswers, inputIds) {
-            const feedbackDiv = document.getElementById(`${problemId}-feedback`);
-            const solutionDiv = document.getElementById(`${problemId}-solution`);
-            const inputElements = inputIds.map(id => document.getElementById(id));
-
-            if (!feedbackDiv || !solutionDiv || inputElements.some(el => !el)) {
-                console.error(`Elements for practice problem ${problemId} not found.`);
-                return;
-            }
-
-            let allCorrect = true;
-            const userAnswers = [];
-
-            inputElements.forEach((inputEl, index) => {
-                const userAnswer = parseFloat(inputEl.value);
-                userAnswers.push(userAnswer);
-                // Allow for small floating point discrepancies
-                if (Math.abs(userAnswer - correctAnswers[index]) > 0.011 ) { // Increased tolerance slightly for 1198.8 vs 1198.80
-                    allCorrect = false;
-                    inputEl.classList.add('incorrect-answer');
-                    inputEl.classList.remove('correct-answer');
-                } else {
-                    inputEl.classList.add('correct-answer');
-                    inputEl.classList.remove('incorrect-answer');
-                }
-            });
-
-            feedbackDiv.classList.remove('hidden', 'text-green-600', 'text-red-600');
-            solutionDiv.classList.remove('hidden'); // Always show solution after checking
-
-            if (allCorrect) {
-                feedbackDiv.textContent = 'Correct!';
-                feedbackDiv.classList.add('text-green-600');
-            } else {
-                feedbackDiv.innerHTML = 'One or more answers are incorrect. Please review the solution below.';
-                feedbackDiv.classList.add('text-red-600');
-            }
-        }
-
-
-        // --- INITIALIZATION ---
-        window.onload = () => {
-            populateSidebar(); 
-            // Load Module 1 by default, or Module 2 if you prefer.
-            // If neither is loaded, the welcome message will show.
-            // loadModule("module1"); 
-            // loadModule("module2"); // Current setup in your new HTML
-             if (welcomeMessage) { // Show welcome message if no module is pre-loaded
-                welcomeMessage.style.display = 'block';
-            }
-        };
-
-    </script>
-</body>
-</html>
+                    const

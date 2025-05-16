@@ -184,7 +184,7 @@
             <div id="welcome-message" class="text-center p-6 sm:p-10 bg-white rounded-lg shadow-md">
                 <h2 class="text-2xl sm:text-3xl font-semibold text-blue-700 mb-4">Welcome to the Interactive Cell & Protein Analytics Course!</h2>
                 <p class="text-base sm:text-lg text-gray-600 mb-6">Select a module from the sidebar to begin your learning journey.</p>
-                <img src="Neubauer-chamber-counting example.jpg" alt="Neubauer chamber counting grid with example cells" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-md w-auto"
+                <img src="https://placehold.co/600x300/60a5fa/ffffff?text=Molecular+Exploration+Awaits!" alt="Welcome Banner" class="mx-auto rounded-lg shadow-sm w-full max-w-lg">
             </div>
         </main>
     </div>
@@ -370,7 +370,7 @@
 
                     // Media Prep Station Interaction
                     const mediaButtonsContainer = document.getElementById('media-components-list');
-                    const mediaPrepInfoDiv = document.getElementById('media-prep-component-info'); // Corrected ID
+                    const mediaPrepInfoDiv = document.getElementById('media-prep-component-info'); 
 
                     if (mediaButtonsContainer && mediaPrepInfoDiv) {
                         const mediaButtons = mediaButtonsContainer.querySelectorAll('.media-component-button');
@@ -407,7 +407,7 @@
                     ];
                     const quizContainerModule1 = document.getElementById('contamination-quiz-module1');
                     if (quizContainerModule1) {
-                        quizContainerModule1.innerHTML = ''; // Clear previous content if any
+                        quizContainerModule1.innerHTML = ''; 
                         contaminationQuizDataModule1.forEach((q, index) => {
                             const qDiv = document.createElement('div');
                             qDiv.className = 'quiz-question p-4 mb-3 bg-white rounded-lg shadow'; 
@@ -448,7 +448,7 @@
                     }
                 }
             },
-            { // Module 2 
+            { 
                 id: "module2",
                 title: "Module 2: Dilutions, Concentrations & Cell Counting",
                 content: () => `
@@ -551,7 +551,7 @@
 
                         <h3>Cell Counting with a Hemocytometer (Neubauer Chamber)</h3>
                         <p>A hemocytometer is a specialized counting chamber slide used to determine the concentration of cells in a liquid sample.</p>
-                        <img src="https://placehold.co/300x200/e0e0e0/333333?text=Neubauer+Grid+Example&font=inter" alt="Neubauer Counting Chamber Grid Example" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-xs w-auto" onerror="this.onerror=null; this.src='https://placehold.co/300x200/d1d5db/4b5563?text=Image+Load+Error'; this.alt='Error loading Neubauer chamber image';">
+                        <img src="Neubauer-chamber-counting example.jpg" alt="Neubauer chamber counting grid with example cells" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-md w-auto">
                         <p class="text-xs text-center text-gray-500 -mt-2 mb-4">Example of cell counting in one square of a Neubauer grid. Green checks indicate cells to count; red X's indicate cells not to count based on a common counting rule (e.g., count cells on top and left lines, exclude bottom and right).</p>
                         <p><strong>General Procedure:</strong></p>
                         <ul class="bg-slate-100 p-3 rounded-md shadow-sm">
@@ -732,6 +732,9 @@
         ];
 
         // --- CORE UI LOGIC ---
+        // ... (rest of your existing JavaScript: loadModule, renderQuiz, populateSidebar, calculators, etc.) ...
+        // (Make sure the JavaScript functions from the previous correct version are all present here)
+
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('main-content');
         const welcomeMessage = document.getElementById('welcome-message');
@@ -843,7 +846,6 @@
 
         function populateSidebar() {
             if (!sidebar) return; 
-            // Clear existing links first to prevent duplication if called multiple times
             const existingLinks = sidebar.querySelectorAll('a.sidebar-link');
             existingLinks.forEach(link => link.remove());
             
@@ -865,7 +867,6 @@
             const mlInput = document.getElementById('ml-input');
             const outputP = document.getElementById('ul-output');
             if (!mlInput || !outputP) {
-                // console.error("Unit converter elements missing for the current module.");
                 return; 
             }
 
@@ -961,7 +962,6 @@
             const outputP = document.getElementById('cell-density-output');
 
             if(!cellsCountedInput || !dilutionFactorInput || !outputP) {
-                // console.error("Cell density calculator elements missing for the current module.");
                 return; 
             }
 
@@ -987,7 +987,6 @@
             const inputElements = inputIds.map(id => document.getElementById(id));
 
             if (!feedbackDiv || !solutionDiv || inputElements.some(el => !el)) {
-                // console.error(`Elements for practice problem ${problemId} not found.`);
                 return;
             }
 

@@ -151,14 +151,15 @@
             border-radius: 0.25rem;
         }
 
-        .plasmid-info-box, .media-component-info-box {
+        .plasmid-info-box, .media-component-info-box { /* General styling for these info boxes */
             padding: 0.75rem;
             border-radius: 0.375rem;
             margin-top: 0.75rem;
             font-size: 0.9rem;
+            /* Tailwind classes in the HTML will define specific backgrounds/borders */
         }
 
-        .media-component-button {
+        .media-component-button { /* Specific to Module 1 Media Prep */
             background-color: #93c5fd; 
             border: 1px solid #60a5fa; 
         }
@@ -365,8 +366,6 @@
                                 button.classList.add('ring-2', 'ring-offset-2', 'ring-blue-700', 'scale-105');
                             });
                         });
-                    } else {
-                        // console.warn("Plasmid components interactive elements (buttons container or info div) not found for Module 1.");
                     }
 
                     // Media Prep Station Interaction
@@ -383,8 +382,6 @@
                                 button.classList.add('selected');
                             });
                         });
-                    } else {
-                        // console.warn("Media prep station interactive elements (buttons container or info div) not found for Module 1.");
                     }
 
                     // Contamination Detective Quiz for Module 1
@@ -448,12 +445,10 @@
                             });
                             quizContainerModule1.appendChild(qDiv);
                         });
-                    } else {
-                        // console.warn("Contamination quiz container 'contamination-quiz-module1' not found.");
                     }
                 }
             },
-            { // Module 2 from your provided HTML
+            { // Module 2 
                 id: "module2",
                 title: "Module 2: Dilutions, Concentrations & Cell Counting",
                 content: () => `
@@ -720,4 +715,313 @@
                     }
                 ],
                 init: () => { 
-                    const
+                    const concUnitSelect = document.getElementById('calc_units_conc');
+                    const volUnitSelect = document.getElementById('calc_units_vol');
+                    
+                    const updateUnitsInCalculator = () => { /* Placeholder if needed */ };
+
+                    if (concUnitSelect) { 
+                        concUnitSelect.addEventListener('change', updateUnitsInCalculator);
+                    }
+                    if (volUnitSelect) {
+                        volUnitSelect.addEventListener('change', updateUnitsInCalculator);
+                    }
+                    updateUnitsInCalculator(); 
+                }
+            }
+        ];
+
+        // --- CORE UI LOGIC ---
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const welcomeMessage = document.getElementById('welcome-message');
+
+        function loadModule(moduleId) {
+            const moduleData = modulesData.find(m => m.id === moduleId);
+            if (moduleData && mainContent) { 
+                if (welcomeMessage) welcomeMessage.style.display = 'none'; 
+                mainContent.innerHTML = moduleData.content(); 
+                
+                if (moduleData.quiz && moduleData.quiz.length > 0) {
+                    const quizHtml = `
+                        <div class="mt-8 pt-6 border-t-2 border-blue-300">
+                            <h3 class="text-xl font-semibold text-blue-700 mb-4">Module Quiz!</h3>
+                            <p class="text-sm text-gray-600 mb-4">Test your knowledge from this module. Select an answer for each question.</p>
+                            <div id="quiz-container-${moduleId}"></div>
+                        </div>
+                    `;
+                    mainContent.insertAdjacentHTML('beforeend', quizHtml);
+                    renderQuiz(moduleData.quiz, `quiz-container-${moduleId}`);
+                }
+                
+                if (moduleData.init && typeof moduleData.init === 'function') {
+                    try {
+                        moduleData.init(); 
+                    } catch (error) {
+                        console.error("Error during module initialization for " + moduleId + ":", error);
+                    }
+                }
+
+                document.querySelectorAll('.sidebar-link').forEach(link => {
+                    link.classList.remove('active', 'bg-slate-700', 'text-yellow-400');
+                    if (link.dataset.moduleId === moduleId) {
+                        link.classList.add('active', 'bg-slate-700', 'text-yellow-400');
+                    }
+                });
+            } else if (!mainContent) {
+                console.error("Error: Main content container not found.");
+            } else {
+                console.warn(`Module with ID "${moduleId}" not found.`);
+                if(welcomeMessage) welcomeMessage.style.display = 'block'; 
+            }
+        }
+
+        function renderQuiz(quizData, containerId) {
+            const quizContainer = document.getElementById(containerId);
+            if (!quizContainer) {
+                console.error(`Quiz container with ID "${containerId}" not found.`);
+                return; 
+            }
+            quizContainer.innerHTML = ''; 
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                
+                let optionsHtml = '';
+                if (q.type === 'mcq' || q.type === 'tf') { 
+                    q.options.forEach(optionText => {
+                        const escapedOptionValue = optionText.replace(/"/g, '&quot;'); 
+                        optionsHtml += `<button class="quiz-option" data-question-index="${index}" data-option-value="${escapedOptionValue}">${optionText}</button>`;
+                    });
+                }
+
+                questionDiv.innerHTML = `
+                    <p class="font-medium mb-3">${index + 1}. ${q.question}</p>
+                    <div class="space-y-2">${optionsHtml}</div>
+                    <div class="feedback-message text-sm mt-2 p-2 rounded-md hidden"></div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+
+            quizContainer.addEventListener('click', function(event) {
+                if (event.target.classList.contains('quiz-option')) {
+                    const selectedOptionButton = event.target;
+                    const questionIndex = parseInt(selectedOptionButton.dataset.questionIndex);
+                    const questionData = quizData[questionIndex];
+                    const feedbackDiv = selectedOptionButton.closest('.quiz-question').querySelector('.feedback-message');
+                    const selectedValue = selectedOptionButton.dataset.optionValue;
+
+                    selectedOptionButton.parentElement.querySelectorAll('.quiz-option').forEach(btn => {
+                        btn.disabled = true;
+                        btn.classList.remove('correct', 'incorrect'); 
+                    });
+                    
+                    feedbackDiv.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700'); 
+
+                    if (selectedValue === questionData.answer) {
+                        selectedOptionButton.classList.add('correct');
+                        feedbackDiv.innerHTML = '<strong>Correct!</strong> '; 
+                        feedbackDiv.classList.add('bg-green-100', 'text-green-700');
+                    } else {
+                        selectedOptionButton.classList.add('incorrect');
+                        feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <span class="font-semibold">${questionData.answer}</span>. `;
+                        feedbackDiv.classList.add('bg-red-100', 'text-red-700');
+                        selectedOptionButton.parentElement.querySelectorAll('.quiz-option').forEach(btn => {
+                            if (btn.dataset.optionValue === questionData.answer) {
+                                btn.classList.add('correct'); 
+                            }
+                        });
+                    }
+                    if(questionData.explanation) {
+                        feedbackDiv.innerHTML += `<br><span class="text-xs">${questionData.explanation}</span>`;
+                    }
+                    feedbackDiv.classList.remove('hidden'); 
+                }
+            });
+        }
+
+        function populateSidebar() {
+            if (!sidebar) return; 
+            // Clear existing links first to prevent duplication if called multiple times
+            const existingLinks = sidebar.querySelectorAll('a.sidebar-link');
+            existingLinks.forEach(link => link.remove());
+            
+            modulesData.forEach(module => {
+                const link = document.createElement('a');
+                link.href = '#'; 
+                link.textContent = module.title;
+                link.className = 'block py-2.5 px-4 rounded sidebar-link text-slate-200 hover:bg-slate-600 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm';
+                link.dataset.moduleId = module.id;
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    loadModule(module.id);
+                });
+                sidebar.appendChild(link);
+            });
+        }
+        
+        function convertUnits() {
+            const mlInput = document.getElementById('ml-input');
+            const outputP = document.getElementById('ul-output');
+            if (!mlInput || !outputP) {
+                // console.error("Unit converter elements missing for the current module.");
+                return; 
+            }
+
+            const mlVal = parseFloat(mlInput.value);
+            if (!isNaN(mlVal)) {
+                outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${mlVal * 1000} &mu;L</span>`;
+                outputP.classList.remove('text-red-600');
+                outputP.classList.add('text-blue-700');
+            } else {
+                outputP.textContent = 'Please enter a valid number for mL.';
+                outputP.classList.remove('text-blue-700');
+                outputP.classList.add('text-red-600');
+            }
+        }
+
+        function calculateDilution() {
+            const c1El = document.getElementById('c1_calc');
+            const v1El = document.getElementById('v1_calc');
+            const c2El = document.getElementById('c2_calc');
+            const v2El = document.getElementById('v2_calc');
+            const resultP = document.getElementById('dilution-result');
+            const stepsP = document.getElementById('dilution-steps');
+            const resultContainer = document.getElementById('dilution-result-container');
+            const concUnitsEl = document.getElementById('calc_units_conc');
+            const volUnitsEl = document.getElementById('calc_units_vol');
+
+            if (!c1El || !v1El || !c2El || !v2El || !resultP || !stepsP || !resultContainer || !concUnitsEl || !volUnitsEl) {
+                 if(resultP) resultP.textContent = "Calculator elements are missing. Cannot perform calculation.";
+                 if(resultContainer) resultContainer.classList.remove('hidden');
+                return;
+            }
+
+            const c1 = parseFloat(c1El.value);
+            const v1 = parseFloat(v1El.value);
+            const c2 = parseFloat(c2El.value);
+            const v2 = parseFloat(v2El.value);
+            
+            resultP.innerHTML = ''; 
+            stepsP.innerHTML = '';  
+            resultContainer.classList.add('hidden'); 
+
+            const concUnits = concUnitsEl.value;
+            const volUnits = volUnitsEl.value; 
+
+            let missingValues = 0;
+            if (isNaN(c1)) missingValues++;
+            if (isNaN(v1)) missingValues++;
+            if (isNaN(c2)) missingValues++;
+            if (isNaN(v2)) missingValues++;
+
+            if (missingValues !== 1) {
+                resultP.textContent = "Error: Please provide exactly 3 values to calculate the fourth.";
+                resultP.className = "font-semibold text-red-600";
+                resultContainer.classList.remove('hidden');
+                return;
+            }
+            
+            let calculatedValueStr = "";
+            let calculationStepsStr = "";
+
+            if (isNaN(c1)) { 
+                if (v1 === 0) { resultP.textContent = "Error: V1 (Stock Volume) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
+                const calc_c1_val = (c2 * v2) / v1;
+                calculatedValueStr = `Calculated Stock Concentration (C<sub>1</sub>) = <strong>${calc_c1_val.toFixed(3)} ${concUnits}</strong>`;
+                calculationStepsStr = `Using C<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / V<sub>1</sub> = (${c2} ${concUnits} &times; ${v2} ${volUnits}) / ${v1} ${volUnits}`;
+            } else if (isNaN(v1)) { 
+                if (c1 === 0) { resultP.textContent = "Error: C1 (Stock Concentration) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
+                const calc_v1_val = (c2 * v2) / c1;
+                const diluentVol = v2 - calc_v1_val;
+                calculatedValueStr = `Calculated Stock Volume (V<sub>1</sub>) = <strong>${calc_v1_val.toFixed(3)} ${volUnits}</strong>`;
+                calculationStepsStr = `Using V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (${c2} ${concUnits} &times; ${v2} ${volUnits}) / ${c1} ${concUnits}. <br>You need ${calc_v1_val.toFixed(3)} ${volUnits} of stock and ${diluentVol.toFixed(3)} ${volUnits} of diluent.`;
+            } else if (isNaN(c2)) { 
+                if (v2 === 0) { resultP.textContent = "Error: V2 (Final Volume) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
+                const calc_c2_val = (c1 * v1) / v2;
+                calculatedValueStr = `Calculated Final Concentration (C<sub>2</sub>) = <strong>${calc_c2_val.toFixed(3)} ${concUnits}</strong>`;
+                calculationStepsStr = `Using C<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / V<sub>2</sub> = (${c1} ${concUnits} &times; ${v1} ${volUnits}) / ${v2} ${volUnits}`;
+            } else if (isNaN(v2)) { 
+                if (c2 === 0) { resultP.textContent = "Error: C2 (Final Concentration) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
+                const calc_v2_val = (c1 * v1) / c2;
+                calculatedValueStr = `Calculated Final Volume (V<sub>2</sub>) = <strong>${calc_v2_val.toFixed(3)} ${volUnits}</strong>`;
+                calculationStepsStr = `Using V<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / C<sub>2</sub> = (${c1} ${concUnits} &times; ${v1} ${volUnits}) / ${c2} ${concUnits}`;
+            }
+            
+            resultP.innerHTML = calculatedValueStr;
+            resultP.className = "font-semibold text-blue-700"; 
+            stepsP.innerHTML = calculationStepsStr;
+            resultContainer.classList.remove('hidden'); 
+        }
+        
+        function calculateCellDensity() {
+            const cellsCountedInput = document.getElementById('cells-counted');
+            const dilutionFactorInput = document.getElementById('dilution-factor');
+            const outputP = document.getElementById('cell-density-output');
+
+            if(!cellsCountedInput || !dilutionFactorInput || !outputP) {
+                // console.error("Cell density calculator elements missing for the current module.");
+                return; 
+            }
+
+            const cellsCounted = parseInt(cellsCountedInput.value); 
+            const dilutionFactor = parseFloat(dilutionFactorInput.value);
+
+            if (isNaN(cellsCounted) || isNaN(dilutionFactor) || cellsCounted < 0 || dilutionFactor <= 0) {
+                outputP.textContent = "Please enter valid, positive numbers for cells counted and dilution factor.";
+                outputP.className = "mt-3 font-semibold text-red-600";
+                return;
+            }
+            
+            const avgCellsPerSquare = cellsCounted / 4; 
+            const cellsPerMilliLiter = avgCellsPerSquare * dilutionFactor * 10000; 
+            
+            outputP.innerHTML = `Calculated Cell Density: <strong>${cellsPerMilliLiter.toExponential(2)} cells/mL</strong>`;
+            outputP.className = "mt-3 font-semibold text-green-700";
+        }
+
+        function checkPracticeAnswer(problemId, correctAnswers, inputIds) {
+            const feedbackDiv = document.getElementById(`${problemId}-feedback`);
+            const solutionDiv = document.getElementById(`${problemId}-solution`);
+            const inputElements = inputIds.map(id => document.getElementById(id));
+
+            if (!feedbackDiv || !solutionDiv || inputElements.some(el => !el)) {
+                // console.error(`Elements for practice problem ${problemId} not found.`);
+                return;
+            }
+
+            let allCorrect = true;
+            inputElements.forEach((inputEl, index) => {
+                const userAnswer = parseFloat(inputEl.value);
+                inputEl.classList.remove('correct-answer', 'incorrect-answer'); 
+                if (Math.abs(userAnswer - correctAnswers[index]) > 0.011 ) { 
+                    allCorrect = false;
+                    inputEl.classList.add('incorrect-answer');
+                } else {
+                    inputEl.classList.add('correct-answer');
+                }
+            });
+
+            feedbackDiv.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            solutionDiv.classList.remove('hidden'); 
+
+            if (allCorrect) {
+                feedbackDiv.textContent = 'Correct!';
+                feedbackDiv.classList.add('text-green-600');
+            } else {
+                feedbackDiv.innerHTML = 'One or more answers are incorrect. Please review the solution below.';
+                feedbackDiv.classList.add('text-red-600');
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            populateSidebar(); 
+            if (welcomeMessage) { 
+                welcomeMessage.style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>

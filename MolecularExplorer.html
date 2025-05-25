@@ -9,10 +9,9 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            margin: 0; 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
+            margin: 0;
+            /* Removed fixed height to allow content to define height */
+            /* display: flex; flex-direction: column; are not needed here as .flex.h-screen handles it */
         }
         .sidebar-link {
             transition: all 0.3s ease;
@@ -23,151 +22,155 @@
             transform: translateX(5px);
         }
         .module-content h2 {
-            font-size: 1.75rem; 
-            font-weight: 600; 
-            color: #1e3a8a; 
+            font-size: 1.75rem; /* 28px */
+            font-weight: 600; /* semibold */
+            color: #1e3a8a; /* blue-800 */
             margin-bottom: 1rem;
-            border-bottom: 2px solid #3b82f6; 
+            border-bottom: 2px solid #3b82f6; /* blue-500 */
             padding-bottom: 0.5rem;
         }
         .module-content h3 {
-            font-size: 1.25rem; 
-            font-weight: 600; 
-            color: #1d4ed8; 
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600; /* semibold */
+            color: #1d4ed8; /* blue-700 */
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
         }
-        .module-content p, .module-content ul, .module-content ol, .module-content table { 
+        .module-content p, .module-content ul, .module-content ol, .module-content table {
             margin-bottom: 1rem;
             line-height: 1.6;
-            color: #374151; 
+            color: #374151; /* gray-700 */
         }
-        .module-content ul, .module-content ol { 
+        .module-content ul, .module-content ol {
             list-style-type: disc;
             margin-left: 1.5rem;
         }
-        .module-content ol.list-decimal { 
+        .module-content ol.list-decimal {
             list-style-type: decimal;
         }
         .module-content .formula {
-            font-family: 'Times New Roman', Times, serif; 
+            font-family: 'Times New Roman', Times, serif;
             font-size: 1.1em;
-            color: #1e40af; 
-            background-color: #f0f9ff; 
+            color: #1e40af; /* blue-800 */
+            background-color: #f0f9ff; /* blue-50 */
             padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            border: 1px solid #e0f2fe; 
-            display: inline-block; 
+            border-radius: 0.375rem; /* rounded-md */
+            border: 1px solid #e0f2fe; /* blue-100 */
+            display: inline-block;
             margin-top: 0.25rem;
             margin-bottom: 0.75rem;
         }
-        .interactive-box, .practice-problem-box { 
-            background-color: #eff6ff; 
-            border: 1px solid #bfdbfe; 
-            border-radius: 0.5rem;
+        .interactive-box, .practice-problem-box {
+            background-color: #eff6ff; /* blue-50 */
+            border: 1px solid #bfdbfe; /* blue-200 */
+            border-radius: 0.5rem; /* rounded-lg */
             padding: 1.5rem;
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        .interactive-box h4, .practice-problem-box h4 { 
+        .interactive-box h4, .practice-problem-box h4 {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #1e40af; 
+            color: #1e40af; /* blue-800 */
             margin-bottom: 1rem;
         }
         .quiz-question {
-            background-color: #f9fafb; 
-            border: 1px solid #e5e7eb; 
-            border-radius: 0.5rem;
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
             padding: 1.5rem;
             margin-bottom: 1.5rem;
         }
         .quiz-option {
             display: block;
-            width: 100%; 
+            width: 100%;
             background-color: #fff;
-            border: 1px solid #d1d5db; 
-            border-radius: 0.375rem;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
             padding: 0.75rem 1rem;
             margin-bottom: 0.5rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-align: left; 
+            text-align: left;
         }
         .quiz-option:hover {
-            border-color: #3b82f6; 
-            background-color: #eff6ff; 
+            border-color: #3b82f6; /* blue-500 */
+            background-color: #eff6ff; /* blue-50 */
         }
-        .quiz-option.correct, .practice-problem-box .correct-answer { 
-            background-color: #d1fae5 !important; 
-            border-color: #10b981 !important; 
-            color: #065f46 !important; 
+        .quiz-option.correct, .practice-problem-box .correct-answer {
+            background-color: #d1fae5 !important; /* green-100 */
+            border-color: #10b981 !important; /* green-500 */
+            color: #065f46 !important; /* green-800 */
         }
-        .quiz-option.incorrect, .practice-problem-box .incorrect-answer { 
-            background-color: #fee2e2 !important; 
-            border-color: #ef4444 !important; 
-            color: #991b1b !important; 
+        .quiz-option.incorrect, .practice-problem-box .incorrect-answer {
+            background-color: #fee2e2 !important; /* red-100 */
+            border-color: #ef4444 !important; /* red-500 */
+            color: #991b1b !important; /* red-800 */
         }
-        .feedback-message, .practice-feedback { 
+        .feedback-message, .practice-feedback {
             margin-top: 0.5rem;
             font-weight: 500;
         }
-        .calculator input, .calculator select, .practice-problem-box input { 
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
+        .calculator input, .calculator select, .practice-problem-box input {
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
             padding: 0.5rem 0.75rem;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
-        .calculator button, .practice-problem-box button { 
-            background-color: #3b82f6; 
+        .calculator button, .practice-problem-box button {
+            background-color: #3b82f6; /* blue-500 */
             color: white;
             padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
+            border-radius: 0.375rem; /* rounded-md */
             transition: background-color 0.2s ease;
-            border: none; 
+            border: none;
         }
-        .calculator button:hover, .practice-problem-box button:hover { 
-            background-color: #2563eb; 
+        .calculator button:hover, .practice-problem-box button:hover {
+            background-color: #2563eb; /* blue-600 */
         }
+        /* Ensure flex container takes full viewport height */
         .flex.h-screen {
             display: flex;
             height: 100vh;
         }
+        /* Allow sidebar to shrink but not grow, and enable scrolling if content overflows */
         #sidebar {
-            flex-shrink: 0; 
+            flex-shrink: 0;
+            overflow-y: auto; /* Added for scrolling if sidebar content is too long */
         }
+        /* Allow main content to grow and enable scrolling */
         #main-content {
-            flex-grow: 1; 
+            flex-grow: 1;
+            overflow-y: auto; /* This is crucial for scrolling main content */
         }
-        .solution-details { 
+        .solution-details {
             font-size: 0.9rem;
-            color: #4b5563; 
-            background-color: #f9fafb; 
-            border-left: 3px solid #3b82f6; 
+            color: #4b5563; /* gray-600 */
+            background-color: #f9fafb; /* gray-50 */
+            border-left: 3px solid #3b82f6; /* blue-500 */
             padding: 0.75rem;
             margin-top: 0.75rem;
-            border-radius: 0.25rem;
+            border-radius: 0.25rem; /* rounded-sm */
         }
 
         .plasmid-info-box, .media-component-info-box { /* General styling for these info boxes */
             padding: 0.75rem;
-            border-radius: 0.375rem;
+            border-radius: 0.375rem; /* rounded-md */
             margin-top: 0.75rem;
             font-size: 0.9rem;
-            /* Tailwind classes in the HTML will define specific backgrounds/borders */
         }
 
         .media-component-button { /* Specific to Module 1 Media Prep */
-            background-color: #93c5fd; 
-            border: 1px solid #60a5fa; 
+            background-color: #93c5fd; /* blue-300 */
+            border: 1px solid #60a5fa; /* blue-400 */
         }
         .media-component-button:hover {
-            background-color: #60a5fa; 
+            background-color: #60a5fa; /* blue-400 */
         }
         .media-component-button.selected {
-            background-color: #3b82f6; 
+            background-color: #3b82f6; /* blue-500 */
             color: white;
             font-weight: bold;
         }
@@ -176,17 +179,17 @@
 <body class="bg-gray-200">
 
     <div class="flex h-screen font-inter">
-        <nav id="sidebar" class="w-64 sm:w-72 bg-slate-800 text-slate-100 p-4 sm:p-6 space-y-3 overflow-y-auto shadow-lg">
+        <nav id="sidebar" class="w-64 sm:w-72 bg-slate-800 text-slate-100 p-4 sm:p-6 space-y-3 shadow-lg">
             <h1 class="text-xl sm:text-2xl font-bold text-yellow-400 mb-6 border-b-2 border-yellow-500 pb-2">Molecular Explorer</h1>
-        </nav>
+            </nav>
 
-        <main id="main-content" class="flex-1 p-4 sm:p-6 md:p-10 bg-slate-50 overflow-y-auto">
+        <main id="main-content" class="flex-1 p-4 sm:p-6 md:p-10 bg-slate-50">
             <div id="welcome-message" class="text-center p-6 sm:p-10 bg-white rounded-lg shadow-md">
                 <h2 class="text-2xl sm:text-3xl font-semibold text-blue-700 mb-4">Welcome to the Interactive Cell & Protein Analytics Course!</h2>
                 <p class="text-base sm:text-lg text-gray-600 mb-6">Select a module from the sidebar to begin your learning journey.</p>
-                <img src="Logo_Heidelberg.svg" alt="Heidelberg Logo" class="block mx-auto h-16 w-auto">
-            </div>
-        </main>
+                <img src="https://placehold.co/200x80/FFFFFF/000000?text=Heidelberg+Logo" alt="Heidelberg Logo Placeholder" class="block mx-auto h-16 w-auto">
+                </div>
+            </main>
     </div>
 
     <script>
@@ -321,11 +324,47 @@
                         </div>
                     </div>
                 `,
-                quiz: [ /* ... Module 1 quiz data ... */ ], // Kept as is from your provided code
+                quiz: [
+                    {
+                        id: "q1m1", type: "mcq",
+                        question: "Which of the following is NOT a typical component of an engineered plasmid used in the lab?",
+                        options: ["Origin of Replication (ori)", "Ribosome Binding Site (for bacteria)", "Selection Marker (e.g., antibiotic resistance)", "Telomeres"],
+                        answer: "Telomeres",
+                        explanation: "Telomeres are found at the ends of linear eukaryotic chromosomes, not typically in circular plasmids."
+                    },
+                    {
+                        id: "q2m1", type: "tf",
+                        question: "HEK293 cells are an example of a primary cell culture.",
+                        options: ["True", "False"],
+                        answer: "False",
+                        explanation: "HEK293 cells are a commonly used immortalized cell line, not a primary culture."
+                    },
+                    {
+                        id: "q3m1", type: "mcq",
+                        question: "What is the primary role of CO2 in a mammalian cell culture incubator?",
+                        options: ["To provide an energy source for the cells", "To maintain the sterility of the culture", "To work with bicarbonate in the medium to buffer pH", "To directly stimulate cell division"],
+                        answer: "To work with bicarbonate in the medium to buffer pH",
+                        explanation: "CO2 dissolves in the medium to form carbonic acid, which along with bicarbonate ions, forms a buffer system to maintain physiological pH."
+                    },
+                    {
+                        id: "q4m1", type: "mcq",
+                        question: "Which sterilization method is most appropriate for heat-sensitive solutions like cell culture media or serum?",
+                        options: ["Autoclaving", "Dry Heat Oven", "Sterile Filtration (0.22 µm filter)", "UV Irradiation"],
+                        answer: "Sterile Filtration (0.22 µm filter)",
+                        explanation: "Sterile filtration removes microorganisms without using heat, which could denature sensitive components in media or serum."
+                    },
+                    {
+                        id: "q5m1", type: "mcq",
+                        question: "Your cell culture medium has suddenly become very cloudy and yellow. Under the microscope, you see many tiny, fast-moving particles. What is the most likely contaminant?",
+                        options: ["Mycoplasma", "Yeast", "Mold", "Bacteria"],
+                        answer: "Bacteria",
+                        explanation: "Rapid turbidity, pH drop (yellowing), and visible motile particles are characteristic signs of bacterial contamination."
+                    }
+                ],
                 init: () => {
                     // Plasmid Components Interaction
                     const plasmidButtonsContainer = document.getElementById('plasmid-components-buttons');
-                    const plasmidInfoDiv = document.getElementById('plasmid-component-info'); 
+                    const plasmidInfoDiv = document.getElementById('plasmid-component-info');
 
                     if (plasmidButtonsContainer && plasmidInfoDiv) {
                         const plasmidButtons = plasmidButtonsContainer.querySelectorAll('.plasmid-component-btn');
@@ -341,7 +380,7 @@
 
                     // Media Prep Station Interaction
                     const mediaButtonsContainer = document.getElementById('media-components-list');
-                    const mediaPrepInfoDiv = document.getElementById('media-prep-component-info'); 
+                    const mediaPrepInfoDiv = document.getElementById('media-prep-component-info');
 
                     if (mediaButtonsContainer && mediaPrepInfoDiv) {
                         const mediaButtons = mediaButtonsContainer.querySelectorAll('.media-component-button');
@@ -354,7 +393,7 @@
                             });
                         });
                     }
-
+                    
                     // Contamination Detective Quiz for Module 1
                     const contaminationQuizDataModule1 = [
                         { 
@@ -378,7 +417,7 @@
                     ];
                     const quizContainerModule1 = document.getElementById('contamination-quiz-module1');
                     if (quizContainerModule1) {
-                        quizContainerModule1.innerHTML = ''; 
+                        quizContainerModule1.innerHTML = ''; // Clear previous content
                         contaminationQuizDataModule1.forEach((q, index) => {
                             const qDiv = document.createElement('div');
                             qDiv.className = 'quiz-question p-4 mb-3 bg-white rounded-lg shadow'; 
@@ -419,7 +458,7 @@
                     }
                 }
             },
-            { 
+            {
                 id: "module2",
                 title: "Module 2: Dilutions, Concentrations & Cell Counting",
                 content: () => `
@@ -470,48 +509,51 @@
                         <p><strong>Conclusion:</strong> You would take 1 mL of the 1 mg/mL stock solution and add 9 mL of diluent (e.g., water or buffer) to make a total final volume of 10 mL with a concentration of 0.1 mg/mL.</p>
                         
                         <div class="interactive-box">
-                            <h4>Interactive: Dilution Calculator</h4>
-                            <p class="text-sm mb-3">Enter any three values (C1, V1, C2, V2) and the units for concentration and volume. The calculator will determine the missing value.</p>
+                            <h4>Interactive: Dilution Calculator (C1V1 = C2V2)</h4>
+                            <p class="text-sm mb-3">Enter any three values (C1, V1, C2, V2) and their respective units. The calculator will determine the missing value, performing necessary unit conversions.</p>
                             <div class="calculator grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 items-end">
                                 <div>
-                                    <label for="c1_calc" class="block text-sm font-medium text-gray-700">C<sub>1</sub> (Stock Conc.):</label>
-                                    <input type="number" id="c1_calc" placeholder="e.g., 10" class="w-full mt-1"> 
+                                    <label for="c1_calc_val" class="block text-sm font-medium text-gray-700">C<sub>1</sub> (Stock Conc.):</label>
+                                    <div class="flex">
+                                        <input type="number" id="c1_calc_val" placeholder="e.g., 10" class="w-2/3 mt-1">
+                                        <select id="c1_calc_unit" class="w-1/3 mt-1 ml-1">
+                                            <option value="M">M</option><option value="mM">mM</option><option value="uM">&mu;M</option><option value="nM">nM</option>
+                                            <option value="g/L">g/L</option><option value="mg/mL">mg/mL</option><option value="ug/mL">&mu;g/mL</option><option value="ng/uL">ng/&mu;L</option>
+                                            <option value="percent">%</option><option value="X">X</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div>
-                                    <label for="v1_calc" class="block text-sm font-medium text-gray-700">V<sub>1</sub> (Stock Vol.):</label>
-                                    <input type="number" id="v1_calc" placeholder="e.g., ?" class="w-full mt-1"> 
+                                    <label for="v1_calc_val" class="block text-sm font-medium text-gray-700">V<sub>1</sub> (Stock Vol.):</label>
+                                     <div class="flex">
+                                        <input type="number" id="v1_calc_val" placeholder="e.g., ?" class="w-2/3 mt-1">
+                                        <select id="v1_calc_unit" class="w-1/3 mt-1 ml-1">
+                                            <option value="L">L</option><option value="mL" selected>mL</option><option value="uL">&mu;L</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div>
-                                    <label for="c2_calc" class="block text-sm font-medium text-gray-700">C<sub>2</sub> (Final Conc.):</label>
-                                    <input type="number" id="c2_calc" placeholder="e.g., 1" class="w-full mt-1"> 
+                                    <label for="c2_calc_val" class="block text-sm font-medium text-gray-700">C<sub>2</sub> (Final Conc.):</label>
+                                    <div class="flex">
+                                        <input type="number" id="c2_calc_val" placeholder="e.g., 1" class="w-2/3 mt-1">
+                                        <select id="c2_calc_unit" class="w-1/3 mt-1 ml-1">
+                                            <option value="M">M</option><option value="mM">mM</option><option value="uM">&mu;M</option><option value="nM">nM</option>
+                                            <option value="g/L">g/L</option><option value="mg/mL">mg/mL</option><option value="ug/mL">&mu;g/mL</option><option value="ng/uL">ng/&mu;L</option>
+                                            <option value="percent">%</option><option value="X">X</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div>
-                                    <label for="v2_calc" class="block text-sm font-medium text-gray-700">V<sub>2</sub> (Final Vol.):</label>
-                                    <input type="number" id="v2_calc" placeholder="e.g., 100" class="w-full mt-1"> 
-                                </div>
-                                <div class="sm:col-span-1">
-                                    <label for="calc_units_conc" class="block text-sm font-medium text-gray-700">Concentration Units:</label>
-                                    <select id="calc_units_conc" class="w-full mt-1">
-                                        <option value="M">M (Molar)</option>
-                                        <option value="mM">mM (millimolar)</option>
-                                        <option value="&mu;M">&mu;M (micromolar)</option>
-                                        <option value="mg/mL">mg/mL</option>
-                                        <option value="&mu;g/mL">&mu;g/mL</option>
-                                        <option value="ng/&mu;L">ng/&mu;L</option>
-                                        <option value="%">% (percent)</option>
-                                        <option value="X">X (fold, e.g. 10X stock)</option>
-                                    </select>
-                                </div>
-                                <div class="sm:col-span-1">
-                                    <label for="calc_units_vol" class="block text-sm font-medium text-gray-700">Volume Units:</label>
-                                    <select id="calc_units_vol" class="w-full mt-1">
-                                        <option value="mL">mL (milliliters)</option>
-                                        <option value="&mu;L">&mu;L (microliters)</option>
-                                        <option value="L">L (liters)</option>
-                                    </select>
+                                    <label for="v2_calc_val" class="block text-sm font-medium text-gray-700">V<sub>2</sub> (Final Vol.):</label>
+                                    <div class="flex">
+                                        <input type="number" id="v2_calc_val" placeholder="e.g., 100" class="w-2/3 mt-1">
+                                        <select id="v2_calc_unit" class="w-1/3 mt-1 ml-1">
+                                            <option value="L">L</option><option value="mL" selected>mL</option><option value="uL">&mu;L</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="sm:col-span-2 mt-2">
-                                    <button onclick="calculateDilution()" class="w-full py-2">Calculate Missing Value</button>
+                                    <button onclick="calculateDilutionWithUnits()" class="w-full py-2">Calculate Missing Value</button>
                                 </div>
                             </div>
                             <div id="dilution-result-container" class="mt-3 p-3 bg-white rounded-md shadow hidden">
@@ -522,7 +564,7 @@
 
                         <h3>Cell Counting with a Hemocytometer (Neubauer Chamber)</h3>
                         <p>A hemocytometer is a specialized counting chamber slide used to determine the concentration of cells in a liquid sample.</p>
-                        <img src="Neubauer-chamber-counting example.jpg" alt="Neubauer chamber counting grid with example cells" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-md w-auto">
+                        <img src="https://placehold.co/400x300/E0E0E0/666666?text=Neubauer+Chamber+Example" alt="Neubauer chamber counting grid with example cells" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-md w-auto" onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E0E0/B0B0B0?text=Image+Not+Found';">
                         
                         <p class="text-xs text-center text-gray-500 -mt-2 mb-4">Example of cell counting in one square of a Neubauer grid. Green checks indicate cells to count; red X's indicate cells not to count based on a common counting rule (e.g., count cells on top and left lines, exclude bottom and right).</p>
                         <p><strong>General Procedure:</strong></p>
@@ -663,22 +705,42 @@
                         </div>
                     </div>
                 `,
-                quiz: [ /* ... Module 2 quiz data ... */ ], // Kept as is from your provided code
-                init: () => { 
-                    const concUnitSelect = document.getElementById('calc_units_conc');
-                    const volUnitSelect = document.getElementById('calc_units_vol');
-                    
-                    const updateUnitsInCalculator = () => { /* Placeholder if needed */ };
-
-                    if (concUnitSelect) { 
-                        concUnitSelect.addEventListener('change', updateUnitsInCalculator);
+                quiz: [
+                    {
+                        id: "q1m2", type: "mcq",
+                        question: "If you have a 10X stock solution of Tris buffer and you want to make 500 mL of 1X Tris buffer, how much of the 10X stock do you need?",
+                        options: ["5 mL", "10 mL", "50 mL", "100 mL"],
+                        answer: "50 mL",
+                        explanation: "Using C1V1 = C2V2: (10X)(V1) = (1X)(500 mL). So, V1 = (1 * 500) / 10 = 50 mL."
+                    },
+                    {
+                        id: "q2m2", type: "tf",
+                        question: "When counting cells with a hemocytometer, the depth of the chamber (with a standard coverslip) is typically 1 mm.",
+                        options: ["True", "False"],
+                        answer: "False",
+                        explanation: "The standard depth of a hemocytometer chamber is 0.1 mm, not 1 mm."
+                    },
+                    {
+                        id: "q3m2", type: "mcq",
+                        question: "You count an average of 75 cells per large square in a hemocytometer. You mixed your cells 1:1 with Trypan Blue before counting. What is the concentration of live cells in your original sample (cells/mL)?",
+                        options: ["7.5 x 10^4 cells/mL", "1.5 x 10^5 cells/mL", "7.5 x 10^5 cells/mL", "1.5 x 10^6 cells/mL"],
+                        answer: "1.5 x 10^6 cells/mL",
+                        explanation: "Cells/mL = (Avg cells/square) * Dilution Factor * 10^4 = 75 * 2 * 10^4 = 150 * 10^4 = 1.5 x 10^6 cells/mL."
+                    },
+                     {
+                        id: "q4m2", type: "mcq",
+                        question: "To make 200 mL of a 50 mM NaCl solution from a 2 M NaCl stock, how much stock solution do you need?",
+                        options: ["0.5 mL", "5 mL", "50 mL", "2.5 mL"],
+                        answer: "5 mL",
+                        explanation: "C1=2 M = 2000 mM, V1=?, C2=50 mM, V2=200 mL. V1 = (C2*V2)/C1 = (50 mM * 200 mL) / 2000 mM = 10000 / 2000 = 5 mL."
                     }
-                    if (volUnitSelect) {
-                        volUnitSelect.addEventListener('change', updateUnitsInCalculator);
-                    }
-                    updateUnitsInCalculator(); 
+                ],
+                init: () => {
+                    // No specific init needed for static content beyond what's globally handled by calculateDilutionWithUnits etc.
+                    // If there were specific interactive elements for Module 2 other than the calculators, they'd be initialized here.
                 }
             }
+            // Add more modules here if needed
         ];
 
         // --- CORE UI LOGIC ---
@@ -688,10 +750,11 @@
 
         function loadModule(moduleId) {
             const moduleData = modulesData.find(m => m.id === moduleId);
-            if (moduleData && mainContent) { 
-                if (welcomeMessage) welcomeMessage.style.display = 'none'; 
-                mainContent.innerHTML = moduleData.content(); 
-                
+            if (moduleData && mainContent) {
+                if (welcomeMessage) welcomeMessage.style.display = 'none';
+                mainContent.innerHTML = moduleData.content(); // Render module content
+
+                // Render quiz if it exists for the module
                 if (moduleData.quiz && moduleData.quiz.length > 0) {
                     const quizHtml = `
                         <div class="mt-8 pt-6 border-t-2 border-blue-300">
@@ -704,6 +767,7 @@
                     renderQuiz(moduleData.quiz, `quiz-container-${moduleId}`);
                 }
                 
+                // Call module-specific initialization function
                 if (moduleData.init && typeof moduleData.init === 'function') {
                     try {
                         moduleData.init(); 
@@ -712,6 +776,7 @@
                     }
                 }
 
+                // Update active link in sidebar
                 document.querySelectorAll('.sidebar-link').forEach(link => {
                     link.classList.remove('active', 'bg-slate-700', 'text-yellow-400');
                     if (link.dataset.moduleId === moduleId) {
@@ -732,7 +797,7 @@
                 console.error(`Quiz container with ID "${containerId}" not found.`);
                 return; 
             }
-            quizContainer.innerHTML = ''; 
+            quizContainer.innerHTML = ''; // Clear previous quiz content
 
             quizData.forEach((q, index) => {
                 const questionDiv = document.createElement('div');
@@ -741,7 +806,7 @@
                 let optionsHtml = '';
                 if (q.type === 'mcq' || q.type === 'tf') { 
                     q.options.forEach(optionText => {
-                        const escapedOptionValue = optionText.replace(/"/g, '&quot;'); 
+                        const escapedOptionValue = optionText.replace(/"/g, '&quot;'); // Handle quotes in option text
                         optionsHtml += `<button class="quiz-option" data-question-index="${index}" data-option-value="${escapedOptionValue}">${optionText}</button>`;
                     });
                 }
@@ -754,6 +819,7 @@
                 quizContainer.appendChild(questionDiv);
             });
 
+            // Add event listener to the quiz container (event delegation)
             quizContainer.addEventListener('click', function(event) {
                 if (event.target.classList.contains('quiz-option')) {
                     const selectedOptionButton = event.target;
@@ -762,6 +828,7 @@
                     const feedbackDiv = selectedOptionButton.closest('.quiz-question').querySelector('.feedback-message');
                     const selectedValue = selectedOptionButton.dataset.optionValue;
 
+                    // Disable all options for this question and clear previous styling
                     selectedOptionButton.parentElement.querySelectorAll('.quiz-option').forEach(btn => {
                         btn.disabled = true;
                         btn.classList.remove('correct', 'incorrect'); 
@@ -777,6 +844,7 @@
                         selectedOptionButton.classList.add('incorrect');
                         feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <span class="font-semibold">${questionData.answer}</span>. `;
                         feedbackDiv.classList.add('bg-red-100', 'text-red-700');
+                        // Highlight the correct answer if the user was wrong
                         selectedOptionButton.parentElement.querySelectorAll('.quiz-option').forEach(btn => {
                             if (btn.dataset.optionValue === questionData.answer) {
                                 btn.classList.add('correct'); 
@@ -793,33 +861,36 @@
 
         function populateSidebar() {
             if (!sidebar) return; 
+            // Clear existing links first if any (e.g. if this function could be called multiple times)
             const existingLinks = sidebar.querySelectorAll('a.sidebar-link');
             existingLinks.forEach(link => link.remove());
             
             modulesData.forEach(module => {
                 const link = document.createElement('a');
-                link.href = '#'; 
+                link.href = '#'; // Prevent page reload
                 link.textContent = module.title;
                 link.className = 'block py-2.5 px-4 rounded sidebar-link text-slate-200 hover:bg-slate-600 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm';
                 link.dataset.moduleId = module.id;
                 link.addEventListener('click', (e) => {
-                    e.preventDefault(); 
+                    e.preventDefault(); // Prevent default anchor behavior
                     loadModule(module.id);
                 });
                 sidebar.appendChild(link);
             });
         }
         
+        // --- MODULE 2 SPECIFIC FUNCTIONS ---
         function convertUnits() {
             const mlInput = document.getElementById('ml-input');
             const outputP = document.getElementById('ul-output');
             if (!mlInput || !outputP) {
+                // console.error("Missing elements for unit conversion.");
                 return; 
             }
 
             const mlVal = parseFloat(mlInput.value);
             if (!isNaN(mlVal)) {
-                outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${mlVal * 1000} &mu;L</span>`;
+                outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${(mlVal * 1000).toLocaleString()} &mu;L</span>`;
                 outputP.classList.remove('text-red-600');
                 outputP.classList.add('text-blue-700');
             } else {
@@ -829,86 +900,233 @@
             }
         }
 
-        function calculateDilution() {
-            const c1El = document.getElementById('c1_calc');
-            const v1El = document.getElementById('v1_calc');
-            const c2El = document.getElementById('c2_calc');
-            const v2El = document.getElementById('v2_calc');
+        // --- CORRECTED DILUTION CALCULATOR WITH UNIT CONVERSION ---
+        function calculateDilutionWithUnits() {
+            const c1ValEl = document.getElementById('c1_calc_val');
+            const c1UnitEl = document.getElementById('c1_calc_unit');
+            const v1ValEl = document.getElementById('v1_calc_val');
+            const v1UnitEl = document.getElementById('v1_calc_unit');
+            const c2ValEl = document.getElementById('c2_calc_val');
+            const c2UnitEl = document.getElementById('c2_calc_unit');
+            const v2ValEl = document.getElementById('v2_calc_val');
+            const v2UnitEl = document.getElementById('v2_calc_unit');
+
             const resultP = document.getElementById('dilution-result');
             const stepsP = document.getElementById('dilution-steps');
             const resultContainer = document.getElementById('dilution-result-container');
-            const concUnitsEl = document.getElementById('calc_units_conc');
-            const volUnitsEl = document.getElementById('calc_units_vol');
 
-            if (!c1El || !v1El || !c2El || !v2El || !resultP || !stepsP || !resultContainer || !concUnitsEl || !volUnitsEl) {
-                 if(resultP) resultP.textContent = "Calculator elements are missing. Cannot perform calculation.";
-                 if(resultContainer) resultContainer.classList.remove('hidden');
+            if (!c1ValEl || !c1UnitEl || !v1ValEl || !v1UnitEl || !c2ValEl || !c2UnitEl || !v2ValEl || !v2UnitEl || !resultP || !stepsP || !resultContainer) {
+                if(resultP) resultP.textContent = "Calculator elements are missing. Cannot perform calculation.";
+                if(resultContainer) resultContainer.classList.remove('hidden');
+                console.error("Dilution calculator elements missing.");
                 return;
             }
-
-            const c1 = parseFloat(c1El.value);
-            const v1 = parseFloat(v1El.value);
-            const c2 = parseFloat(c2El.value);
-            const v2 = parseFloat(v2El.value);
             
             resultP.innerHTML = ''; 
             stepsP.innerHTML = '';  
             resultContainer.classList.add('hidden'); 
 
-            const concUnits = concUnitsEl.value;
-            const volUnits = volUnitsEl.value; 
+            // --- Unit Conversion Factors ---
+            // Base for concentration: Molar (M)
+            // Base for mass/volume: g/L (equivalent to mg/mL or µg/µL)
+            // Base for percent/X: Treat them as direct ratios
+            const concFactorsToMolar = {
+                'M': 1, 'mM': 1e-3, 'uM': 1e-6, 'nM': 1e-9,
+            };
+            const concFactorsToGramsPerLiter = {
+                'g/L': 1, 'mg/mL': 1, 'ug/mL': 1e-3, 'ng/uL': 1, // ng/µL is same as mg/mL
+                // For percent and X, we handle them differently as they are relative
+            };
+            // Base for volume: mL
+            const volFactorsToML = { 'L': 1000, 'mL': 1, 'uL': 1e-3 };
 
-            let missingValues = 0;
-            if (isNaN(c1)) missingValues++;
-            if (isNaN(v1)) missingValues++;
-            if (isNaN(c2)) missingValues++;
-            if (isNaN(v2)) missingValues++;
+            // Helper function to get value in base unit
+            const getValueInBase = (valStr, unit, type) => {
+                const val = parseFloat(valStr);
+                if (isNaN(val)) return NaN;
 
-            if (missingValues !== 1) {
+                if (type === 'conc') {
+                    if (unit === '%' || unit === 'X') return val; // Keep as is for now
+                    if (concFactorsToMolar[unit]) return val * concFactorsToMolar[unit];
+                    if (concFactorsToGramsPerLiter[unit]) return val * concFactorsToGramsPerLiter[unit]; // This needs careful thought if mixing molar and mass/vol
+                    return NaN; // Unknown unit
+                } else if (type === 'vol') {
+                    return val * volFactorsToML[unit];
+                }
+                return NaN;
+            };
+            
+            // Get original units for output
+            const c1UnitOrig = c1UnitEl.value;
+            const v1UnitOrig = v1UnitEl.value;
+            const c2UnitOrig = c2UnitEl.value;
+            const v2UnitOrig = v2UnitEl.value;
+
+            // Check if units are compatible (e.g. don't mix molar with g/L directly without MW)
+            // For simplicity, this version assumes units within C1/C2 are of the same "type" (molar, mass/vol, or relative)
+            // and V1/V2 are volume units.
+            // A more robust calculator would handle MW for molar to mass/vol conversions.
+            // This version will primarily focus on converting within the same type of unit (e.g. M to mM, mL to L)
+
+            let c1_val = parseFloat(c1ValEl.value);
+            let v1_val = parseFloat(v1ValEl.value);
+            let c2_val = parseFloat(c2ValEl.value);
+            let v2_val = parseFloat(v2ValEl.value);
+
+            // Determine which value is missing
+            let missingCount = 0;
+            if (isNaN(c1_val)) missingCount++;
+            if (isNaN(v1_val)) missingCount++;
+            if (isNaN(c2_val)) missingCount++;
+            if (isNaN(v2_val)) missingCount++;
+
+            if (missingCount !== 1) {
                 resultP.textContent = "Error: Please provide exactly 3 values to calculate the fourth.";
                 resultP.className = "font-semibold text-red-600";
                 resultContainer.classList.remove('hidden');
                 return;
             }
+
+            // Convert all provided values to a consistent set of base units for calculation
+            // For concentrations: convert to the unit of the first defined concentration value if possible, or a common base.
+            // Let's use a simple approach: convert all to a single base unit type if they are compatible.
+            // If C1 is molar, C2 must be molar. If C1 is g/L, C2 must be g/L. % and X are relative.
+
+            let c1_base = NaN, v1_base = NaN, c2_base = NaN, v2_base = NaN;
+            let targetConcUnitForOutput = c1UnitOrig; // Default
+            let targetVolUnitForOutput = v1UnitOrig; // Default
+
+            // --- Convert to Base Units (mL for volume, M for molar, g/L for mass/vol) ---
+            // This simplified version will assume units are compatible or relative (X, %)
+            // A full implementation would need more sophisticated unit compatibility checks.
+
+            const getVal = (valEl, unitEl) => parseFloat(valEl.value);
+            const getUnit = (unitEl) => unitEl.value;
+
+            c1_val = getVal(c1ValEl, c1UnitEl);
+            let c1_unit = getUnit(c1UnitEl);
+            v1_val = getVal(v1ValEl, v1UnitEl);
+            let v1_unit = getUnit(v1UnitEl);
+            c2_val = getVal(c2ValEl, c2UnitEl);
+            let c2_unit = getUnit(c2UnitEl);
+            v2_val = getVal(v2ValEl, v2UnitEl);
+            let v2_unit = getUnit(v2UnitEl);
+
+            // Convert volumes to mL for internal calculation
+            if (!isNaN(v1_val)) v1_base = v1_val * (volFactorsToML[v1_unit] || 1);
+            if (!isNaN(v2_val)) v2_base = v2_val * (volFactorsToML[v2_unit] || 1);
+
+            // Convert concentrations to a base (e.g., M for molar, g/L for mass/vol)
+            // This part needs to be robust. For now, let's assume units are of the same "type" or relative.
+            // If C1 is 'X' or '%', C2 must also be 'X' or '%', or one is 1X/100% by implication.
             
-            let calculatedValueStr = "";
+            // Simplification: if units are 'X' or '%', treat values directly.
+            // Otherwise, convert to a common factor if possible (e.g. M, mM, uM all go to M)
+            // This is a HARD problem to generalize without a full unit parsing/conversion library.
+            // For this fix, we'll assume the user picks compatible concentration types (e.g., all molar, or all g/L based, or all relative)
+            // and we convert them to the "largest" unit in that category for calculation.
+
+            // Let's try converting concentrations to their "base" equivalent (e.g., M for molar, g/L for mass/vol)
+            const convertConcToBase = (val, unit) => {
+                if (isNaN(val)) return NaN;
+                if (concFactorsToMolar[unit]) return val * concFactorsToMolar[unit]; // Base is M
+                if (concFactorsToGramsPerLiter[unit]) return val * concFactorsToGramsPerLiter[unit]; // Base is g/L
+                if (unit === '%' || unit === 'X') return val; // Relative, use as is
+                return NaN; // Unknown or incompatible
+            };
+            
+            if (!isNaN(c1_val)) c1_base = convertConcToBase(c1_val, c1_unit);
+            if (!isNaN(c2_val)) c2_base = convertConcToBase(c2_val, c2_unit);
+
+            // Check if concentration types are compatible (e.g. M vs g/L) - this is tricky
+            // For now, if one is molar and other is mass/vol, and neither is X or %, it's an error
+            const isMolar = (unit) => !!concFactorsToMolar[unit];
+            const isMassVol = (unit) => !!concFactorsToGramsPerLiter[unit];
+            const isRelative = (unit) => unit === '%' || unit === 'X';
+
+            if (!isNaN(c1_val) && !isNaN(c2_val)) {
+                if ((isMolar(c1_unit) && isMassVol(c2_unit)) || (isMassVol(c1_unit) && isMolar(c2_unit))) {
+                     resultP.textContent = "Error: Cannot directly mix molar (M, mM, etc.) and mass/volume (g/L, mg/mL, etc.) concentrations without molecular weight. Please use compatible units.";
+                     resultP.className = "font-semibold text-red-600";
+                     resultContainer.classList.remove('hidden');
+                     return;
+                }
+            }
+
+
+            let calculatedValue = NaN;
+            let calculatedUnit = "";
+            let diluentVol_base = NaN;
             let calculationStepsStr = "";
 
-            if (isNaN(c1)) { 
-                if (v1 === 0) { resultP.textContent = "Error: V1 (Stock Volume) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_c1_val = (c2 * v2) / v1;
-                calculatedValueStr = `Calculated Stock Concentration (C<sub>1</sub>) = <strong>${calc_c1_val.toFixed(3)} ${concUnits}</strong>`;
-                calculationStepsStr = `Using C<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / V<sub>1</sub> = (${c2} ${concUnits} &times; ${v2} ${volUnits}) / ${v1} ${volUnits}`;
-            } else if (isNaN(v1)) { 
-                if (c1 === 0) { resultP.textContent = "Error: C1 (Stock Concentration) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_v1_val = (c2 * v2) / c1;
-                const diluentVol = v2 - calc_v1_val;
-                calculatedValueStr = `Calculated Stock Volume (V<sub>1</sub>) = <strong>${calc_v1_val.toFixed(3)} ${volUnits}</strong>`;
-                calculationStepsStr = `Using V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (${c2} ${concUnits} &times; ${v2} ${volUnits}) / ${c1} ${concUnits}. <br>You need ${calc_v1_val.toFixed(3)} ${volUnits} of stock and ${diluentVol.toFixed(3)} ${volUnits} of diluent.`;
-            } else if (isNaN(c2)) { 
-                if (v2 === 0) { resultP.textContent = "Error: V2 (Final Volume) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_c2_val = (c1 * v1) / v2;
-                calculatedValueStr = `Calculated Final Concentration (C<sub>2</sub>) = <strong>${calc_c2_val.toFixed(3)} ${concUnits}</strong>`;
-                calculationStepsStr = `Using C<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / V<sub>2</sub> = (${c1} ${concUnits} &times; ${v1} ${volUnits}) / ${v2} ${volUnits}`;
-            } else if (isNaN(v2)) { 
-                if (c2 === 0) { resultP.textContent = "Error: C2 (Final Concentration) cannot be zero for this calculation."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
-                const calc_v2_val = (c1 * v1) / c2;
-                calculatedValueStr = `Calculated Final Volume (V<sub>2</sub>) = <strong>${calc_v2_val.toFixed(3)} ${volUnits}</strong>`;
-                calculationStepsStr = `Using V<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / C<sub>2</sub> = (${c1} ${concUnits} &times; ${v1} ${volUnits}) / ${c2} ${concUnits}`;
+            if (isNaN(c1_base) && !isNaN(v1_base) && !isNaN(c2_base) && !isNaN(v2_base)) { // Calculate C1
+                if (v1_base === 0) { resultP.textContent = "Error: V1 (Stock Volume) cannot be zero."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return; }
+                calculatedValue = (c2_base * v2_base) / v1_base;
+                targetConcUnitForOutput = c1UnitOrig; // Output in the unit selected for C1
+                // Convert calculatedValue (which is in base unit for conc) back to targetConcUnitForOutput
+                if (concFactorsToMolar[targetConcUnitForOutput]) calculatedValue /= concFactorsToMolar[targetConcUnitForOutput];
+                else if (concFactorsToGramsPerLiter[targetConcUnitForOutput]) calculatedValue /= concFactorsToGramsPerLiter[targetConcUnitForOutput];
+                // For % or X, it should already be in the correct relative value if c2_base was also relative.
+                
+                c1ValEl.value = calculatedValue.toPrecision(4);
+                calculationStepsStr = `C<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / V<sub>1</sub> = (${c2_val} ${c2_unit} &times; ${v2_val} ${v2_unit}) / ${v1_val} ${v1_unit}`;
+                resultP.innerHTML = `Calculated Stock Concentration (C<sub>1</sub>) = <strong>${calculatedValue.toPrecision(4)} ${targetConcUnitForOutput}</strong>`;
+            } else if (isNaN(v1_base) && !isNaN(c1_base) && !isNaN(c2_base) && !isNaN(v2_base)) { // Calculate V1
+                if (c1_base === 0) { resultP.textContent = "Error: C1 (Stock Concentration) cannot be zero."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return; }
+                calculatedValue = (c2_base * v2_base) / c1_base; // This is in mL (v_base)
+                diluentVol_base = v2_base - calculatedValue;
+                targetVolUnitForOutput = v1UnitOrig; // Output in the unit selected for V1
+                // Convert calculatedValue (mL) back to targetVolUnitForOutput
+                calculatedValue /= (volFactorsToML[targetVolUnitForOutput] || 1);
+                let diluentVol_targetUnit = diluentVol_base / (volFactorsToML[v2UnitOrig] || 1); // Show diluent in V2's unit for clarity
+
+                v1ValEl.value = calculatedValue.toPrecision(4);
+                calculationStepsStr = `V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (${c2_val} ${c2_unit} &times; ${v2_val} ${v2_unit}) / ${c1_val} ${c1_unit}. <br>You need ${calculatedValue.toPrecision(4)} ${targetVolUnitForOutput} of stock.`;
+                if (v2_base >= (calculatedValue * (volFactorsToML[targetVolUnitForOutput]||1) )) { // only show diluent if V2 is larger
+                     calculationStepsStr += `<br>Add ${diluentVol_targetUnit.toPrecision(4)} ${v2UnitOrig} of diluent to reach final volume ${v2_val} ${v2UnitOrig}.`;
+                } else {
+                     calculationStepsStr += `<br>Note: Final volume V2 (${v2_val} ${v2_unit}) is less than required stock volume. Check inputs.`;
+                }
+                resultP.innerHTML = `Calculated Stock Volume (V<sub>1</sub>) = <strong>${calculatedValue.toPrecision(4)} ${targetVolUnitForOutput}</strong>`;
+            } else if (isNaN(c2_base) && !isNaN(c1_base) && !isNaN(v1_base) && !isNaN(v2_base)) { // Calculate C2
+                if (v2_base === 0) { resultP.textContent = "Error: V2 (Final Volume) cannot be zero."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return; }
+                calculatedValue = (c1_base * v1_base) / v2_base;
+                targetConcUnitForOutput = c2UnitOrig;
+                if (concFactorsToMolar[targetConcUnitForOutput]) calculatedValue /= concFactorsToMolar[targetConcUnitForOutput];
+                else if (concFactorsToGramsPerLiter[targetConcUnitForOutput]) calculatedValue /= concFactorsToGramsPerLiter[targetConcUnitForOutput];
+
+                c2ValEl.value = calculatedValue.toPrecision(4);
+                calculationStepsStr = `C<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / V<sub>2</sub> = (${c1_val} ${c1_unit} &times; ${v1_val} ${v1_unit}) / ${v2_val} ${v2_unit}`;
+                resultP.innerHTML = `Calculated Final Concentration (C<sub>2</sub>) = <strong>${calculatedValue.toPrecision(4)} ${targetConcUnitForOutput}</strong>`;
+            } else if (isNaN(v2_base) && !isNaN(c1_base) && !isNaN(v1_base) && !isNaN(c2_base)) { // Calculate V2
+                if (c2_base === 0) { resultP.textContent = "Error: C2 (Final Concentration) cannot be zero for this calculation unless C1 or V1 is also zero."; resultP.className = "font-semibold text-red-600"; resultContainer.classList.remove('hidden'); return;}
+                calculatedValue = (c1_base * v1_base) / c2_base; // This is in mL
+                targetVolUnitForOutput = v2UnitOrig;
+                calculatedValue /= (volFactorsToML[targetVolUnitForOutput] || 1);
+
+                v2ValEl.value = calculatedValue.toPrecision(4);
+                calculationStepsStr = `V<sub>2</sub> = (C<sub>1</sub> &times; V<sub>1</sub>) / C<sub>2</sub> = (${c1_val} ${c1_unit} &times; ${v1_val} ${v1_unit}) / ${c2_val} ${c2_unit}`;
+                resultP.innerHTML = `Calculated Final Volume (V<sub>2</sub>) = <strong>${calculatedValue.toPrecision(4)} ${targetVolUnitForOutput}</strong>`;
+            } else {
+                 resultP.textContent = "Error: Could not determine calculation path. Check inputs and units.";
+                 resultP.className = "font-semibold text-red-600";
+                 resultContainer.classList.remove('hidden');
+                 return;
             }
             
-            resultP.innerHTML = calculatedValueStr;
             resultP.className = "font-semibold text-blue-700"; 
             stepsP.innerHTML = calculationStepsStr;
             resultContainer.classList.remove('hidden'); 
         }
-        
+
+
         function calculateCellDensity() {
             const cellsCountedInput = document.getElementById('cells-counted');
             const dilutionFactorInput = document.getElementById('dilution-factor');
             const outputP = document.getElementById('cell-density-output');
 
             if(!cellsCountedInput || !dilutionFactorInput || !outputP) {
+                // console.error("Cell density calculator elements missing.");
                 return; 
             }
 
@@ -934,6 +1152,7 @@
             const inputElements = inputIds.map(id => document.getElementById(id));
 
             if (!feedbackDiv || !solutionDiv || inputElements.some(el => !el)) {
+                // console.error(`Missing elements for practice problem ${problemId}`);
                 return;
             }
 
@@ -941,7 +1160,8 @@
             inputElements.forEach((inputEl, index) => {
                 const userAnswer = parseFloat(inputEl.value);
                 inputEl.classList.remove('correct-answer', 'incorrect-answer'); 
-                if (Math.abs(userAnswer - correctAnswers[index]) > 0.011 ) { 
+                // Using a small tolerance for floating point comparisons
+                if (isNaN(userAnswer) || Math.abs(userAnswer - correctAnswers[index]) > 0.011 * Math.abs(correctAnswers[index]) + 1e-5 ) { 
                     allCorrect = false;
                     inputEl.classList.add('incorrect-answer');
                 } else {
@@ -967,6 +1187,10 @@
             if (welcomeMessage) { 
                 welcomeMessage.style.display = 'block';
             }
+            // Automatically load the first module or a specific module if desired
+            // if (modulesData.length > 0) {
+            //    loadModule(modulesData[0].id);
+            // }
         };
     </script>
 </body>
